@@ -5,7 +5,7 @@
  */
 package com.example.shici.entity;
 
-public class poetryInfo {
+public class PoemDetail {
     private String title;
     private String authoer;
     private String body;

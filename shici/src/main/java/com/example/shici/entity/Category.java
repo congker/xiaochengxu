@@ -6,5 +6,7 @@
 package com.example.shici.entity;
 
 public class Category {
-    
+    private String title;
+    private String name;
+    private String body;
 }

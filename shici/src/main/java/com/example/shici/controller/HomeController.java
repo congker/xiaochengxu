@@ -15,11 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class HomeController {
     /**
-     *  方法描述
-     * */
-    @RequestMapping(value = "/test")
-    public String test(@RequestParam String param) {
+     * 获取tab列表
+     */
+    @RequestMapping(value = "/getTabList")
+    public String getTabList(@RequestParam String param) {
         log.info("param:", param);
         return param;
     }
+
+    /**
+     * 获取文章列表（分页）
+     */
+    @RequestMapping(value = "/getArticleList")
+    public String getArticleList(@RequestParam String param) {
+        log.info("param:", param);
+        return param;
+    }
+
+    /**
+     * 获取文章详情
+     */
+    @RequestMapping(value = "/getArticleDetail")
+    public String getArticleDetail(@RequestParam String param) {
+        log.info("param:", param);
+        return param;
+    }
+
+
 }

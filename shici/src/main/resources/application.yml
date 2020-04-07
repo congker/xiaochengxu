@@ -1,1 +1,9 @@
-
+server:
+  port: 8080
+spring:
+  data:
+    mongodb:
+      uri:
+      database: myDb
+      username: root
+      password: 123456
