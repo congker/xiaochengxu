@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
@@ -12,14 +13,54 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+    "pages/poem/index",
+    "pages/homeList/index",
+    "pages/poem/detail/index",
+    "pages/me/index",
+    "pages/search/index",
+    "pages/sentence/index",
+    "pages/poet/index",
+    "pages/poet/detail/index",
+    "pages/me/poem/index",
+    "pages/me/author/index",
+    "pages/me/about/index",
+    "pages/poem/audio/index",
+    "pages/me/search/index",
+    "pages/sentence/detail/index",
+    "pages/me/sentence/index",
+    "pages/sentence/list/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "古诗词",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#337ab7",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index",
+        "text": "首页",
+        "iconPath": "images/icon/home.png",
+        "selectedIconPath": "images/icon/home_active.png"
+      },
+      {
+        "pagePath": "pages/search/index",
+        "text": "搜索",
+        "iconPath": "images/icon/find.png",
+        "selectedIconPath": "images/icon/find_active.png"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我",
+        "iconPath": "images/icon/my.png",
+        "selectedIconPath": "images/icon/my_active.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

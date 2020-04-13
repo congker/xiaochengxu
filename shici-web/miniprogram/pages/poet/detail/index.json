@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "诗人详情",
+  "usingComponents": {
+    "shortcut": "../../../component/shortcut/shortcut"
+  }
+}

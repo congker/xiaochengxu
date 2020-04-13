@@ -1,0 +1,80 @@
+<!--pages/me/about/index.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">古诗文小助手</view>
+        <!-- <view class="page__desc">关于我们</view> -->
+    </view>
+    <view class="page__bd">
+        <view class="weui-article">
+            <!-- <view class="weui-article__h1">大标题</view> -->
+            <view class="weui-article__section">
+                 <view class="weui-article__title">1 简单介绍</view> 
+                <view class="weui-article__section">
+                      <view class="weui-article__h3">1.1 关于</view>  
+                    <view class="weui-article__p">
+                       学古诗(xuegushi.cn)是一个关于中国传统文化的网站。网站的侧重点是收集并分类展示古诗文(包括诗词曲赋文言文)以及一些现代诗歌。
+                    </view>
+                    <view class="weui-article__p">
+                       学古诗收集大量的古诗文并且对其分类，主要通过形式（诗词曲文言文等）、类型（咏物，写景等）、朝代，对其进行分类。
+                    </view>
+                    <view class="weui-article__p">
+                       网站以及小程序由 "小小梦工场" 个人维护，内容收集自互联网。有问题可以邮箱联系（info@xuegushi.cn）
+                    </view>
+                </view>
+            </view>
+            <view class="weui-article__section">
+                <view class="weui-article__title">2 搜索功能</view> 
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">2.1 搜索记录</view>  
+                    <view class="weui-article__p">
+                      搜索记录是记录你的搜索历史，内容缓存在本地。
+                    </view>
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">2.2 搜索热点</view>  
+                    <view class="weui-article__p">
+                      搜索热点是指，当天被搜索次数最多的8个词。如果没显示，说明当天还没有人搜索。
+                    </view>
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">2.3 搜索结果</view>  
+                    <view class="weui-article__p">
+                      搜索结果共分为四项。分别为：类型，诗人，名句以及诗词。
+                    </view>
+                    <view class="weui-article__p">
+                      类型，是指对诗词进行分类的标签类型。具体可看诗词详情页正文下方的绿色“徽章”。
+                    </view>
+                    <view class="weui-article__p">
+                      诗人，对应的是对诗人的名字进行匹配后所得的结果。
+                    </view>
+                    <view class="weui-article__p">
+                      名句是指，包含搜索词的热门句子。
+                    </view>
+                    <view class="weui-article__p">
+                      诗词是指，标题中包含搜索词的诗词，此处并没有对诗词的原文内容进行检索。
+                    </view>
+                </view>
+            </view>
+            <view class="weui-article__section">
+                <view class="weui-article__title">3 朗读功能</view> 
+                <view class="weui-article__section">
+                    <view class="weui-article__p">
+                      朗读功能使用的是百度AI的语音合成技术。首先将文字合成为MP3格式的音频，然后来下载到本地播放。
+                    </view>
+                     <view class="weui-article__p">
+                      由于功能限制，合成的语音对诗词的字数有限制。只能合成诗词的前512个字（包括标点符号），暂时没有做相关的分批合成优化。
+                    </view>
+                </view>
+            </view>
+                 <view class="weui-article__section">
+                <view class="weui-article__title">4 广告功能</view> 
+                <view class="weui-article__section">
+                    <view class="weui-article__p">
+                    因为小程序需要后台服务器支持，而域名和服务器都是需要花费的，所以暂时在搜索页面、个人页面以及诗文详情页添加了广告插件。希望大家能够理解。
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+

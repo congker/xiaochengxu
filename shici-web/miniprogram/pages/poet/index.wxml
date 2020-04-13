@@ -1,0 +1,38 @@
+<!-- pages/poem/poet/index.wxml -->
+<view class="home-content">
+    <!-- filter -->
+    <view class="section filter-section" wx:if='{{!is_search}}'>
+        <view class="section__title h4">朝代</view>
+        <scroll-view scroll-x="{{true}}" class="section__content" style="width:100%">
+            <view id="{{item.name}}" class="filter-item {{d_index == index ? 'pressed' : ''}}" bindtap="DynastyChange" wx:for="{{dynasty}}" data-id="{{index}}" wx:key="{{item}}" style="background:{{colors[index]}}">
+                {{item}}
+            </view>
+        </scroll-view>
+    </view>
+    <view class="divide"></view>
+    <view class="nav-breadcrumb weui-flex">
+        <view class="item theme" wx-if='{{!is_search}}'>{{dynasty[d_index]}}</view>
+        <view class="item theme" wx-if='{{is_search}}'>{{_keyWord}}</view>
+        <view class="item total">共 {{total}} 条结果</view>
+    </view>
+    <view class="divide"></view>
+    <view class="list">
+        <view class="page__bd">
+            <navigator url="/pages/poet/detail/index?id={{item.id}}" hover-class="navigator-hover" class="weui-cell poem-item weui-flex" wx:for="{{poets}}" wx:key="{{item.id}}">
+                <view class="weui-flex__item left">
+                    <view class="poet-img" wx:if="{{item.avatar}}">
+                        <image src="{{item.avatar}}" lazy-load="{{true}}"></image>
+                    </view>
+                    <view class="poet-img name" wx:else>{{item.author_name[0]}}</view>
+                </view>
+                <view class="weui-flex__item">
+                    <view class="poem-title">
+                        {{item.author_name}}
+                        <text class="dynasty">「{{item.dynasty}}」</text>
+                    </view>
+                    <view class="poem-profile">{{item.profile}}</view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,144 @@
+/* pages/poem/poet/index.wxss */
+.list{
+    width: 100%;
+    background-color: #fff;
+    padding-top: 0
+}
+.home-content{
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+.navigator-hover{
+    background-color: #fff;
+    color: #337ab7;
+}
+.weui-cells {
+    font-size: 14px;
+    color: #666;
+}
+.weui-cell {
+    padding:4px 10px;
+}
+.list .weui-cell_access{
+    font-size: 12px;
+}
+.poem-item view{
+    width:100%;
+    display: block;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+.poem-item .left{
+    max-width: 60px;
+}
+.poem-item .poet-img{
+    width: 52px;
+}
+.poem-item image{
+    width: 52px;
+    height: 75px;
+}
+.poem-item .left .name{
+    font-size:50px;
+    max-height:75px;
+}
+.poem-item .poem-title{
+    color: #333;
+    font-size: 14px;
+}
+.poem-item .dynasty{
+    color:#888;
+    font-size:13px;
+}
+.poem-item .poem-profile{
+    color: #666;
+    font-size: 12px;
+    white-space: initial;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+}
+.poem-item .poem-title:first-child{
+    overflow: inherit;
+}
+.poem-item .poem-author{
+    color: #888;
+    font-size: 12px;
+    display: inline-block;
+    overflow: inherit;
+    /* padding: 5px 0; */
+}
+.poem-item .poem-content{
+    font-size: 14px;
+    color: #454545;
+}
+
+/*
+* filter section
+*/
+
+.filter-section {
+    background-color: white;
+    height: auto;
+    padding: 5px 0 10px 10px;
+    border-bottom: 1px solid #f4f4f4;
+    border-top: 1px solid #f4f4f4;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.filter-section:last-child {
+    padding-bottom: 5px;
+}
+
+.filter-section .h4 {
+    color: #4c1f2c;
+    font-size: 36rpx;
+    line-height: 38rpxpx;
+    background: #fff;
+    border: none;
+    margin-right:0;
+    padding-right:0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.filter-section scroll-view {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch
+}
+
+.filter-item {
+    background: #f7f7f7;
+    color: #fff;
+    font-size: 32rpx;
+    padding: 4px 10px;
+    margin-bottom: 0;
+    display: inline-block;
+    border-radius: 4px;
+    position: relative;
+    margin-right: 8px;
+    writing-mode:vertical-rl;
+    letter-spacing: 2px;
+    /* display: table-cell; */
+    height: 51px;
+    text-align: center;
+}
+
+.filter-item:last-child {
+    margin-right: 20px;
+}
+
+.filter-item.pressed {
+    color: white;
+    background-color: #337ab7!important;
+    font-weight: 500;
+}
+.weui-cell::before{
+    border-top:none
+}
