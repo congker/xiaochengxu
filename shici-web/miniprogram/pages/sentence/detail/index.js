@@ -53,7 +53,7 @@ Page({
      * */
     return: function () {
         wx.switchTab({
-            url: "/pages/index"
+            url: "/pages/index/index"
         });
     },
     /**

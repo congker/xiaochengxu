@@ -127,7 +127,7 @@ Page({
     // 5 返回回调函数
     myGobackFunction: function () {
         wx.switchTab({
-            url: "/pages/index"
+            url: "/pages/index/index"
         });
     },
 

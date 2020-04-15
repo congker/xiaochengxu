@@ -11,50 +11,54 @@ exports.main = (event, context) => {
 
 Page({
 
-  data: {
-    result: '',
-    canIUseClipboard: wx.canIUse('setClipboardData'),
-  },
+    data: {
+        result: '',
+        canIUseClipboard: wx.canIUse('setClipboardData'),
+    },
 
-  onLoad: function (options) {
+    onLoad: function (options) {
 
-  },
-
-  copyCode: function() {
-    wx.setClipboardData({
-      data: code,
-      success: function () {
-        wx.showToast({
-          title: '复制成功',
+    },
+    /*
+    * 复制验证码
+    * */
+    copyCode: function () {
+        wx.setClipboardData({
+            data: code,
+            success: function () {
+                wx.showToast({
+                    title: '复制成功',
+                })
+            }
         })
-      }
-    })
-  },
-
-  testFunction() {
-    wx.cloud.callFunction({
-      name: 'sum',
-      data: {
-        a: 1,
-        b: 2
-      },
-      success: res => {
-        wx.showToast({
-          title: '调用成功',
+    },
+    /*
+    * 测试函数
+    * */
+    testFunction() {
+        wx.cloud.callFunction({
+            name: 'sum',
+            data: {
+                a: 1,
+                b: 2
+            },
+            success: res => {
+                wx.showToast({
+                    title: '调用成功',
+                })
+                this.setData({
+                    result: JSON.stringify(res.result)
+                })
+            },
+            fail: err => {
+                wx.showToast({
+                    icon: 'none',
+                    title: '调用失败',
+                })
+                console.error('[云函数] [sum] 调用失败：', err)
+            }
         })
-        this.setData({
-          result: JSON.stringify(res.result)
-        })
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '调用失败',
-        })
-        console.error('[云函数] [sum] 调用失败：', err)
-      }
-    })
-  },
+    },
 
 })
 

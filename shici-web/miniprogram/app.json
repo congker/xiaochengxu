@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index",
     "pages/index/index",
+    "pages/home/home",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -43,7 +43,7 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/index",
+        "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "images/icon/home.png",
         "selectedIconPath": "images/icon/home_active.png"

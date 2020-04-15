@@ -1,120 +1,221 @@
 //index.js
-const app = getApp()
+import {GET_RANDOM_SENTENCE, LOADFAIL} from "../../apis/request";
 
+const app = getApp();
+let util = require("../../utils/util.js");
+let homeInterval = null;
 Page({
-  data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
-  },
-
-  onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
+    data: {
+        categories: [
+            {
+                code: "shijing",
+                name: "诗经全集",
+                profile: "最古老的诗集"
+            },
+            {
+                code: "chuci",
+                name: "楚辞全集",
+                profile: "浪漫主义诗集"
+            },
+            {
+                code: "yuefu",
+                name: "乐府诗集",
+                profile: "古代乐府诗集"
+            },
+            {
+                code: "songci",
+                name: "宋词精选",
+                profile: "优秀宋词集锦"
+            },
+            {
+                code: "shijiu",
+                name: "古诗十九首",
+                profile: "南朝萧统录"
+            },
+            {
+                code: "tangshi",
+                name: "唐诗三百首",
+                profile: "蘅塘退士编"
+            },
+            {
+                code: "songcisanbai",
+                name: "宋词三百首",
+                profile: "朱孝臧编"
+            },
+            {
+                code: "sanbai",
+                name: "古诗三百首",
+                profile: "曾立国编"
             }
-          })
+        ],
+        books: [
+            {
+                name: "小学诗词",
+                code: "xiaoxue",
+                profile: "静夜思"
+            },
+            {
+                name: "小学古文",
+                code: "xiaoxuewyw",
+                profile: "揠苗助长"
+            },
+            {
+                name: "初中诗词",
+                code: "chuzhong",
+                profile: "明月几时有"
+            },
+            {
+                name: "初中古文",
+                code: "chuzhongwyw",
+                profile: "湖心亭看雪"
+            },
+            {
+                name: "高中诗词",
+                code: "gaozhong",
+                profile: "鱼我所欲也"
+            },
+            {
+                name: "高中古文",
+                code: "gaozhongwyw",
+                profile: "孔雀东南飞"
+            }
+        ],
+        date: util.formatDateToMb(),
+        hot: app.globalData.hot,
+        animationData: {},
+        show_load: true
+    },
+    // 每日一诗
+    getRandomSentence: function () {
+        const that = this;
+        const hot = wx.getStorageSync("hot");
+        const day = util.formatDate().join("/");
+        if (hot && day === hot.date) {
+            this.setData({
+                hot: hot
+            });
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
+        } else {
+            GET_RANDOM_SENTENCE("GET", {})
+                .then(res => {
+                    if (res.data && res.succeeded) {
+                        that.setData({
+                            hot: res.data[0]
+                        });
+                        app.globalData.hot = res.data[0];
+                        wx.setStorage({
+                            key: "hot",
+                            data: {
+                                ...res.data[0],
+                                date: util.formatDate().join("/")
+                            }
+                        });
+                    }
+                    wx.hideLoading();
+                    wx.hideNavigationBarLoading();
+                })
+                .catch(error => {
+                    console.log(error);
+                    LOADFAIL();
+                });
         }
-      }
-    })
-  },
-
-  onGetUserInfo: function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
-    }
-  },
-
-  onGetOpenid: function() {
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
+    },
+    // 监控筛选变化
+    pageRedirectTo: function (e) {
+        const {code, type} = e.currentTarget.dataset;
+        let item = {};
+        if (type === "category") {
+            this.data.categories.forEach(element => {
+                if (element.code === code) {
+                    item = element;
+                }
+            });
+        } else {
+            this.data.books.forEach(element => {
+                if (element.code === code) {
+                    item = element;
+                }
+            });
+        }
         wx.navigateTo({
-          url: '../userConsole/userConsole',
-        })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
-      }
-    })
-  },
-
-  // 上传图片
-  doUpload: function () {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-
+            url: `/pages/homeList/index?code=${item.code}&name=${item.name}&profile=${item.profile}`
+        });
+    },
+    onLoad: function () {
         wx.showLoading({
-          title: '上传中',
-        })
-
-        const filePath = res.tempFilePaths[0]
-        
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-            
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
-            })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
-        })
-
-      },
-      fail: e => {
-        console.error(e)
-      }
-    })
-  },
-
-})
+            title: "加载中"
+        });
+        if (!this.data.hot) {
+            this.getRandomSentence();
+        } else {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
+        }
+        // that.getHomeData(that.data.categoryCode[that.data.index]);
+    },
+    onShow: function () {
+        let that = this;
+        let sysInfo = app.globalData.systemInfo;
+        let winWidth = sysInfo.windowWidth;
+        let ii = 0;
+        let animation = wx.createAnimation({
+            duration: 20000,
+            timingFunction: "ease-in-out"
+        });
+        //动画的脚本定义必须每次都重新生成，不能放在循环外
+        animation.translateX(winWidth - 50)
+            .step({duration: 10000})
+            .translateX(10)
+            .step({duration: 10000});
+        // 更新数据
+        that.setData({
+            // 导出动画示例
+            animationData: animation.export()
+        });
+        homeInterval = setInterval(
+            function () {
+                //动画的脚本定义必须每次都重新生成，不能放在循环外
+                animation
+                    .translateX(winWidth - 50)
+                    .step({duration: 10000})
+                    .translateX(10)
+                    .step({duration: 10000});
+                // 更新数据
+                that.setData({
+                    // 导出动画示例
+                    animationData: animation.export()
+                });
+                ++ii;
+            }.bind(that),
+            20000
+        ); //20000这里的设置如果小于动画step的持续时间的话会导致执行一半后出错
+    },
+    onHide: function () {
+        clearInterval(homeInterval);
+    },
+    onUnload: function () {
+        clearInterval(homeInterval);
+    },
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+        wx.stopPullDownRefresh();
+    },
+    // 分享
+    onShareAppMessage: function (res) {
+        return {
+            title: "古诗文小助手",
+            path: "/pages/index/index",
+            // imageUrl:'/images/poem.png',
+            success: function (res) {
+                // 转发成功
+                console.log("转发成功！");
+            },
+            fail: function (res) {
+                // 转发失败
+            }
+        };
+    }
+});

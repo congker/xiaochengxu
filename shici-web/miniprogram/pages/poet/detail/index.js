@@ -37,7 +37,7 @@ Page({
             });
         } else {
             wx.switchTab({
-                url: "/pages/index"
+                url: "/pages/index/index"
             });
         }
     },

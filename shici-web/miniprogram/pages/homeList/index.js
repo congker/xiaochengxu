@@ -23,7 +23,7 @@ Page({
         let that = this;
         let data = null;
         let page = 1;
-        if (type && type == "more") {
+        if (type && type === "more") {
             if (last_page < current_page) {
                 return false;
             }

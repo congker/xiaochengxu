@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "poemItemView": "../component/poemItemView/poemItemView"
+  },
+  "navigationBarTitleText": "首页 | 古诗文欣赏"
 }

@@ -51,7 +51,7 @@ Page({
 	// 返回启动页
 	return: function() {
 		wx.switchTab({
-			url: "/pages/index"
+			url: "/pages/index/index"
 		});
 	},
 	// 滚动切换标签样式
@@ -249,7 +249,7 @@ Page({
 			});
 			wx.hideLoading();
 			return false
-		} else if (!add_qrcode && canvas_img) { 
+		} else if (!add_qrcode && canvas_img) {
 			that.setData({
 				show_canvas: true,
 				is_load: true
@@ -257,7 +257,7 @@ Page({
 			wx.hideLoading();
 			return false
 		}
-		
+
 		let content = that.data.content.content;
 		let poemType = that.data.poem.type;
 		let pixelRatio = that.data.pixelRatio;
@@ -422,14 +422,14 @@ Page({
 							qr_canvas_img: res.tempFilePath,
 							is_load: true
 						});
-					} else { 
+					} else {
 						that.setData({
 							show_canvas: true,
 							canvas_img: res.tempFilePath,
 							is_load: true
 						});
 					}
-					
+
 					wx.hideLoading();
 					console.log(res.tempFilePath);
 				}

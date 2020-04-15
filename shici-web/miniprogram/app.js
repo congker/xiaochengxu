@@ -1,10 +1,7 @@
 //app.js
-const mtjwxsdk = require("./utils/mtj-wx-sdk.js");
-const tabBarLinks = [
-    "/pages/index",
-    "/pages/search/index",
-    "/pages/me/index"
-];
+// const mtjwxsdk = require("./utils/mtj-wx-sdk.js");
+const cloud = require('wx-server-sdk')
+const tabBarLinks = ["/pages/index/index", "/pages/search/index", "/pages/me/index"];
 App({
     /**
      *  启动
@@ -15,14 +12,14 @@ App({
         } else {
             wx.cloud.init({
                 // env 参数说明：
-                //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-                //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
-                //   如不填则使用默认环境（第一个创建的环境）
-                // env: 'my-env-id',
+                // 1.env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
+                // 2.此处请填入环境 ID, 环境 ID 可打开云控制台查看
+                // 3.如不填则使用默认环境（第一个创建的环境）
                 // env: 'serc-96afe3',
                 env: cloud.DYNAMIC_CURRENT_ENV,
                 traceUser: true,
             })
+            console.log("env:" + wx.cloud.env)
         }
 
         this.globalData = {}

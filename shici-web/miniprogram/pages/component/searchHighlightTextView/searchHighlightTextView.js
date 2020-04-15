@@ -51,7 +51,7 @@ Component({
     },
 
     getHilightStrArray: function (str, key) {
-      if (!str) { 
+      if (!str) {
         return '';
       }
       return str.replace(new RegExp(`${key}`, 'g'), `%%${key}%%`).split('%%');
