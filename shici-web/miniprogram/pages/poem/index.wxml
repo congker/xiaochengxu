@@ -1,11 +1,12 @@
 <!--pages/poem/index.wxml-->
 <view class="home-content">
     <!--filter-->
-    <view class="filter"  wx:if='{{!isSearch}}'>
+    <view class="filter" wx:if='{{!isSearch}}'>
         <view class="section filter-section">
             <view class="section__title h4">类型</view>
             <scroll-view scroll-x="{{true}}" class="section__content" style="width:100%">
-                <view id="{{item.name}}"  class="filter-item {{t_index == index ? 'pressed' : ''}}" bindtap="filterPoem" wx:for="{{types}}"
+                <view id="{{item.name}}" class="filter-item {{t_index == index ? 'pressed' : ''}}" bindtap="filterPoem"
+                      wx:for="{{types}}"
                       data-id="{{index}}"
                       data-type="type"
                       style="background:{{colors[index]}}"
@@ -16,7 +17,8 @@
         <view class="section filter-section">
             <view class="section__title h4">朝代</view>
             <scroll-view scroll-x="{{true}}" class="section__content" style="width:100%">
-                <view id="{{item.name}}"  class="filter-item {{d_index == index ? 'pressed' : ''}}" bindtap="filterPoem" wx:for="{{dynasty}}"
+                <view id="{{item.name}}" class="filter-item {{d_index == index ? 'pressed' : ''}}" bindtap="filterPoem"
+                      wx:for="{{dynasty}}"
                       data-id="{{index}}"
                       data-type="dynasty"
                       style="background:{{colors[index]}}"
@@ -25,7 +27,7 @@
             </scroll-view>
         </view>
     </view>
-    <view class="divide"></view>
+    <view class="divide"/>
     <!-- nav -->
     <view class="nav-breadcrumb weui-flex">
         <view class="item theme" wx-if='{{!is_search}}'>{{dynasty[d_index]}}</view>
@@ -34,7 +36,7 @@
         <view class="item type" wx-if='{{is_search}}'>{{_keyWord}}</view>
         <view class="item total">共 {{total}} 条结果</view>
     </view>
-    <view class="divide"></view>
+    <view class="divide"/>
     <!--poem list-->
     <view class="list">
         <view class="page__bd">

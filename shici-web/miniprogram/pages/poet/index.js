@@ -1,4 +1,3 @@
-// pages/poem/poet/index.js
 const app = getApp();
 import {GET_POET_DATA, LOADFAIL} from '../../apis/request'
 
@@ -120,7 +119,7 @@ Page({
             });
         }
         that.setData({
-            is_search: options.type ? true : false,
+            is_search: !!options.type,
             _keyWord: options.keyWord ? options.keyWord : null
         });
         that.getPoetData(0, 1, options.keyWord);

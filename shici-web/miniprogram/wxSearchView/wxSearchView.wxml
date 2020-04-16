@@ -63,7 +63,7 @@
 				<view class='title'>类型</view>
 				<view class='content'>
 					<navigator
-					 url="/pages/poem/index?type=tag&keyWord={{item}}"
+					 url="/pages/poem/index?type=tag&amp;keyWord={{item}}"
 					 hover-class="navigator-hover"
 					 class="poem-item tag"
 					 wx:for="{{tags}}"
@@ -95,7 +95,7 @@
 						<!--<view class="poem-profile">{{item.profile}}</view>-->
 					</navigator>
 					<view class="weui-cells weui-cells_after-title" wx-if='{{poets.total>3}}'>
-						<navigator url="/pages/poet/index?type=poet&keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+						<navigator url="/pages/poet/index?type=poet&amp;keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 							<view class="weui-cell__hd" />
 							<view class="weui-cell__bd">查看更多结果</view>
 							<view class="weui-cell__ft weui-cell__ft_in-access" style="min-width:48px">{{poets.total}}</view>
@@ -118,7 +118,7 @@
 						</navigator>
 					</block>
 					<view class="weui-cells weui-cells_after-title" wx-if='{{sentences.total>3}}'>
-						<navigator url="/pages/sentence/list/index?isSearch=true&keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+						<navigator url="/pages/sentence/list/index?isSearch=true&amp;keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 							<view class="weui-cell__hd" />
 							<view class="weui-cell__bd">查看更多结果</view>
 							<view class="weui-cell__ft weui-cell__ft_in-access" style="min-width:48px">{{sentences.total}}</view>
@@ -150,7 +150,7 @@
 						</view>
 					</navigator>
 					<view class="weui-cells weui-cells_after-title" wx-if='{{poems.total>3}}'>
-						<navigator url="/pages/poem/index?type=poem&keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+						<navigator url="/pages/poem/index?type=poem&amp;keyWord={{keyWord}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 							<view class="weui-cell__hd" />
 							<view class="weui-cell__bd">查看更多结果</view>
 							<view class="weui-cell__ft weui-cell__ft_in-access" style="min-width:48px">{{poems.total}}</view>

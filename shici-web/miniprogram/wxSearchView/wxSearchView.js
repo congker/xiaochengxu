@@ -38,7 +38,7 @@ function init(that, hotKeys, tipKeys, searchFunction, goBackFunction) {
     temData.hotKeys = hotKeys;
 
     wx.getSystemInfo({
-        success: function(res) {
+        success: function (res) {
             let wHeight = res.windowHeight;
             view.seachHeight = wHeight - barHeight;
             temData.view = view;
@@ -62,7 +62,7 @@ function wxSearchInput(e) {
         for (let i = 0; i < __tipKeys.length; i++) {
             let mindKey = __tipKeys[i];
             // 包含字符串
-            if (mindKey.indexOf(inputValue) != -1) {
+            if (mindKey.indexOf(inputValue) !== -1) {
                 tipKeys.push(mindKey);
             }
         }
@@ -101,7 +101,7 @@ function wxSearchKeyTap(e) {
 // 确任或者回车
 function wxSearchConfirm(e) {
     let key = e.target.dataset.key;
-    if (key == "back") {
+    if (key === "back") {
         __goBackFunction();
     } else {
         search(__that.data.wxSearchData.value);
@@ -146,7 +146,7 @@ function getHisKeys() {
 
 // 添加缓存
 function wxSearchAddHisKey(inputValue) {
-    if (!inputValue || inputValue.length == 0) {
+    if (!inputValue || inputValue.length === 0) {
         return;
     }
     let value = wx.getStorageSync("wxSearchHisKeys");
@@ -157,7 +157,7 @@ function wxSearchAddHisKey(inputValue) {
         wx.setStorage({
             key: "wxSearchHisKeys",
             data: value,
-            success: function() {
+            success: function () {
                 getHisKeys(__that);
             }
         });
@@ -167,7 +167,7 @@ function wxSearchAddHisKey(inputValue) {
         wx.setStorage({
             key: "wxSearchHisKeys",
             data: value,
-            success: function() {
+            success: function () {
                 getHisKeys(__that);
             }
         });
@@ -178,7 +178,7 @@ function wxSearchAddHisKey(inputValue) {
 function wxSearchDeleteAll() {
     wx.removeStorage({
         key: "wxSearchHisKeys",
-        success: function(res) {
+        success: function (res) {
             let value = [];
             let temData = __that.data.wxSearchData;
             temData.his = value;

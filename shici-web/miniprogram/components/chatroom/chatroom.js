@@ -46,23 +46,18 @@ Component({
         //初始化房间
         async initRoom() {
             this.try(async () => {
-                await this.initOpenID()
-
-                const {envId, collection} = this.properties
+                await this.initOpenID();
+                const {envId, collection} = this.properties;
                 const db = this.db = wx.cloud.database({
                     env: envId,
-                })
-                const _ = db.command
-
-                const {data: initList} = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get()
-
-                console.log('init query chats', initList)
-
+                });
+                const _ = db.command;
+                const {data: initList} = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get();
+                console.log('init query chats', initList);
                 this.setData({
                     chats: initList.reverse(),
                     scrollTop: 10000,
-                })
-
+                });
                 this.initWatch(initList.length ? {
                     sendTimeTS: _.gt(initList[initList.length - 1].sendTimeTS),
                 } : {})
@@ -71,8 +66,7 @@ Component({
 
         async initOpenID() {
             return this.try(async () => {
-                const openId = await this.getOpenID()
-
+                const openId = await this.getOpenID();
                 this.setData({
                     openId,
                 })
@@ -81,11 +75,10 @@ Component({
 
         async initWatch(criteria) {
             this.try(() => {
-                const {collection} = this.properties
-                const db = this.db
-                const _ = db.command
-
-                console.warn(`开始监听`, criteria)
+                const {collection} = this.properties;
+                const db = this.db;
+                const _ = db.command;
+                console.warn(`开始监听`, criteria);
                 this.messageListener = db.collection(collection).where(this.mergeCommonCriteria(criteria)).watch({
                     onChange: this.onRealtimeMessageSnapshot.bind(this),
                     onError: e => {
@@ -106,7 +99,7 @@ Component({
         },
 
         onRealtimeMessageSnapshot(snapshot) {
-            console.warn(`收到消息`, snapshot)
+            console.warn(`收到消息`, snapshot);
 
             if (snapshot.type === 'init') {
                 this.setData({
@@ -114,18 +107,18 @@ Component({
                         ...this.data.chats,
                         ...[...snapshot.docs].sort((x, y) => x.sendTimeTS - y.sendTimeTS),
                     ],
-                })
-                this.scrollToBottom()
+                });
+                this.scrollToBottom();
                 this.inited = true
             } else {
-                let hasNewMessage = false
-                let hasOthersMessage = false
-                const chats = [...this.data.chats]
+                let hasNewMessage = false;
+                let hasOthersMessage = false;
+                const chats = [...this.data.chats];
                 for (const docChange of snapshot.docChanges) {
                     switch (docChange.queueType) {
                         case 'enqueue': {
-                            hasOthersMessage = docChange.doc._openid !== this.data.openId
-                            const ind = chats.findIndex(chat => chat._id === docChange.doc._id)
+                            hasOthersMessage = docChange.doc._openid !== this.data.openId;
+                            const ind = chats.findIndex(chat => chat._id === docChange.doc._id);
                             if (ind > -1) {
                                 if (chats[ind].msgType === 'image' && chats[ind].tempFilePath) {
                                     chats.splice(ind, 1, {
@@ -134,7 +127,7 @@ Component({
                                     })
                                 } else chats.splice(ind, 1, docChange.doc)
                             } else {
-                                hasNewMessage = true
+                                hasNewMessage = true;
                                 chats.push(docChange.doc)
                             }
                             break
@@ -143,7 +136,7 @@ Component({
                 }
                 this.setData({
                     chats: chats.sort((x, y) => x.sendTimeTS - y.sendTimeTS),
-                })
+                });
                 if (hasOthersMessage || hasNewMessage) {
                     this.scrollToBottom()
                 }
@@ -155,10 +148,9 @@ Component({
                 if (!e.detail.value) {
                     return
                 }
-
-                const {collection} = this.properties
-                const db = this.db
-                const _ = db.command
+                const {collection} = this.properties;
+                const db = this.db;
+                const _ = db.command;
 
                 const doc = {
                     _id: `${Math.random()}_${Date.now()}`,
@@ -169,7 +161,7 @@ Component({
                     textContent: e.detail.value,
                     sendTime: new Date(),
                     sendTimeTS: Date.now(), // fallback
-                }
+                };
 
                 this.setData({
                     textInputValue: '',
@@ -181,12 +173,11 @@ Component({
                             writeStatus: 'pending',
                         },
                     ],
-                })
-                this.scrollToBottom(true)
-
+                });
+                this.scrollToBottom(true);
                 await db.collection(collection).add({
                     data: doc,
-                })
+                });
 
                 this.setData({
                     chats: this.data.chats.map(chat => {
@@ -200,13 +191,15 @@ Component({
                 })
             }, '发送文字失败')
         },
-
+         /**
+         * 选择图片
+         * */
         async onChooseImage(e) {
             wx.chooseImage({
                 count: 1,
                 sourceType: ['album', 'camera'],
                 success: async res => {
-                    const {envId, collection} = this.properties
+                    const {envId, collection} = this.properties;
                     const doc = {
                         _id: `${Math.random()}_${Date.now()}`,
                         groupId: this.data.groupId,
@@ -215,7 +208,7 @@ Component({
                         msgType: 'image',
                         sendTime: new Date(),
                         sendTimeTS: Date.now(), // fallback
-                    }
+                    };
 
                     this.setData({
                         chats: [
@@ -227,8 +220,8 @@ Component({
                                 writeStatus: 0,
                             },
                         ]
-                    })
-                    this.scrollToBottom(true)
+                    });
+                    this.scrollToBottom(true);
 
                     const uploadTask = wx.cloud.uploadFile({
                         cloudPath: `${this.data.openId}/${Math.random()}_${Date.now()}.${res.tempFilePaths[0].match(/\.(\w+)$/)[1]}`,
@@ -249,7 +242,7 @@ Component({
                         fail: e => {
                             this.showError('发送图片失败', e)
                         },
-                    })
+                    });
 
                     uploadTask.onProgressUpdate(({progress}) => {
                         this.setData({
@@ -273,17 +266,17 @@ Component({
             })
         },
 
-        scrollToBottom(force) {
+        scrollToBottom: function (force) {
             if (force) {
-                console.log('force scroll to bottom')
-                this.setData(SETDATA_SCROLL_TO_BOTTOM)
+                console.log('force scroll to bottom');
+                this.setData(SETDATA_SCROLL_TO_BOTTOM);
                 return
             }
 
             this.createSelectorQuery().select('.body').boundingClientRect(bodyRect => {
                 this.createSelectorQuery().select(`.body`).scrollOffset(scroll => {
                     if (scroll.scrollTop + bodyRect.height * 3 > scroll.scrollHeight) {
-                        console.log('should scroll to bottom')
+                        console.log('should scroll to bottom');
                         this.setData(SETDATA_SCROLL_TO_BOTTOM)
                     }
                 }).exec()
@@ -292,12 +285,12 @@ Component({
 
         async onScrollToUpper() {
             if (this.db && this.data.chats.length) {
-                const {collection} = this.properties
-                const _ = this.db.command
+                const {collection} = this.properties;
+                const _ = this.db.command;
                 const {data} = await this.db.collection(collection).where(this.mergeCommonCriteria({
                     sendTimeTS: _.lt(this.data.chats[0].sendTimeTS),
-                })).orderBy('sendTimeTS', 'desc').get()
-                this.data.chats.unshift(...data.reverse())
+                })).orderBy('sendTimeTS', 'desc').get();
+                this.data.chats.unshift(...data.reverse());
                 this.setData({
                     chats: this.data.chats,
                     scrollToMessage: `item-${data.length}`,
@@ -315,11 +308,11 @@ Component({
         },
 
         showError(title, content, confirmText, confirmCallback) {
-            console.error(title, content)
+            console.error(title, content);
             wx.showModal({
                 title,
                 content: content.toString(),
-                showCancel: confirmText ? true : false,
+                showCancel: !!confirmText,
                 confirmText,
                 success: res => {
                     res.confirm && confirmCallback()
@@ -329,8 +322,8 @@ Component({
     },
 
     ready() {
-        global.chatroom = this
-        this.initRoom()
+        global.chatroom = this;
+        this.initRoom();
         this.fatalRebuildCount = 0
     },
 })

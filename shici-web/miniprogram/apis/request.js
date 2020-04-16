@@ -1,8 +1,3 @@
-/**
- * API 统一请求文件
- * author: johnnyzhang
- * github: https://github.com/johnnyzhang1992/gushi_lite
- */
 const app = getApp();
 const BaseUrl = app.globalData.url;
 
@@ -67,7 +62,7 @@ export const BACKURL = () => {
                 let backUrl = app.globalData.backUrl;
                 if (res && res.confirm) {
                     // 现在去登录
-                    if (backUrl && backUrl.type && backUrl.type == "tab") {
+                    if (backUrl && backUrl.type && backUrl.type === "tab") {
                         wx.switchTab({
                             url: backUrl.url
                         });
@@ -124,7 +119,7 @@ export const GET_USER_INFO = (method, data) => {
  */
 export const GET_SEARCH_LIST = (method, data) => {
     return Request(`/wxxcx/search_list`, data, method);
-}
+};
 
 /**
  * 更新搜索状态（删除数据库搜索记录）
@@ -133,7 +128,7 @@ export const GET_SEARCH_LIST = (method, data) => {
  */
 export const UPDATE_SEARCH_STATE = (method, data) => {
     return Request(`/wxxcx/search/${data.id}/update`, data, method);
-}
+};
 
 //-----------------
 //------ 首页 --
@@ -174,7 +169,6 @@ export const GET_USER_COLLECT = (method, data) => {
  * 更新收藏状态
  * @param {String} method
  * @param {Object} data
- * @param {poem,sentence,author} type
  */
 export const UPDATE_USER_COLLECT = (method, data) => {
     return Request(`/wxxcx/updateCollect/${data.type}`, data, method);

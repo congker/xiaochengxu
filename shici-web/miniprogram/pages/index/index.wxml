@@ -10,44 +10,51 @@
                 {{hot.title}}
             </navigator>
         </view>
-        <image class="h-boat boat-img" src="../images/boat.png" animation="{{animationData}}"></image>
+        <image class="h-boat boat-img" src="../images/boat.png" animation="{{animationData}}"/>
     </view>
     <!-- <view class="divide"></view> -->
     <!-- nav list -->
     <view class="weui-flex nav-list">
+        <navigator bindtap="getLunyu" url="poem/index" hover-class="navigator-hover" class="weui-flex__item nav-item">
+            <image class="" src="../images/icon/poem.png"/>
+            <view class="nav-item-text">论语</view>
+        </navigator>
         <navigator url="poem/index" hover-class="navigator-hover" class="weui-flex__item nav-item">
-            <image class="" src="../images/icon/poem.png"></image>
+            <image class="" src="../images/icon/poem.png"/>
             <view class="nav-item-text">诗词文言</view>
         </navigator>
         <navigator url="sentence/index" hover-class="navigator-hover" class="weui-flex__item nav-item">
-            <image class="" src="../images/icon/sentence.png"></image>
+            <image class="" src="../images/icon/sentence.png"/>
             <view class="nav-item-text">热门名句</view>
         </navigator>
         <navigator url="poet/index" hover-class="navigator-hover" class="weui-flex__item nav-item">
-            <image class="" src="../images/icon/poet.png"></image>
+            <image class="" src="../images/icon/poet.png"/>
             <view class="nav-item-text">历朝诗人</view>
         </navigator>
-        <navigator url="/pages/search/index" open-type="switchTab" hover-class="navigator-hover" class="weui-flex__item nav-item">
-            <image class="" src="../images/icon/find_active.png"></image>
+        <navigator url="/pages/search/index" open-type="switchTab" hover-class="navigator-hover"
+                   class="weui-flex__item nav-item">
+            <image class="" src="../images/icon/find_active.png"/>
             <view class="nav-item-text">搜索</view>
         </navigator>
     </view>
-    <view class="divide"></view>
+    <view class="divide"/>
     <!-- filter -->
     <view class="section filter-section">
         <view class="filter-title">选集</view>
         <view class="filter-list">
-            <view class="filter-item" wx:for="{{categories}}" wx:for-item="category" data-code="{{category.code}}" data-type="category" bindtap="pageRedirectTo" wx:key="code">
+            <view class="filter-item" wx:for="{{categories}}" wx:for-item="category" data-code="{{category.code}}"
+                  data-type="category" bindtap="pageRedirectTo" wx:key="code">
                 <text>{{category.name}}</text>
                 <text class="profile">{{category.profile}}</text>
             </view>
         </view>
     </view>
-    <view class="divide"></view>
+    <view class="divide"/>
     <view class="section filter-section">
         <view class="filter-title">课本</view>
         <view class="filter-list">
-            <view class="filter-item" wx:for="{{books}}" wx:for-item="book" data-code="{{book.code}}" data-type="book" bindtap="pageRedirectTo" wx:key="code">
+            <view class="filter-item" wx:for="{{books}}" wx:for-item="book" data-code="{{book.code}}" data-type="book"
+                  bindtap="pageRedirectTo" wx:key="code">
                 <text>{{book.name}}</text>
                 <text class="profile">{{book.profile}}</text>
             </view>

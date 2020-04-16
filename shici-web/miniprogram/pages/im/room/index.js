@@ -1,5 +1,5 @@
 //index.js
-const app = getApp()
+const app = getApp();
 Page({
     data: {
         avatarUrl: './user-unlogin.png',
@@ -33,12 +33,12 @@ Page({
                     })
                 }
             }
-        })
+        });
 
         this.setData({
             onGetUserInfo: this.onGetUserInfo,
             getOpenID: this.getOpenID,
-        })
+        });
 
         wx.getSystemInfo({
             success: res => {
@@ -63,11 +63,14 @@ Page({
             config: {
                 env: 'release-f8415a',
             },
-        })
+        });
 
         return result.openid
     },
 
+    /**
+     * 获取用户信息
+     * */
     onGetUserInfo: function (e) {
         if (!this.logged && e.detail.userInfo) {
             this.setData({
@@ -84,4 +87,4 @@ Page({
             path: '/pages/index/index',
         }
     },
-})
+});
