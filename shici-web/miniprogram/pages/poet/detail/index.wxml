@@ -1,13 +1,13 @@
 <!--pages/poem/poet/detail/index.wxml-->
 <view class="home-content">
     <view class='author_avatar' wx:if="{{poet.avatar}}">
-        <image src="{{poet.avatar}}"></image>
+        <image src="{{poet.avatar}}"/>
     </view>
     <view class='author_name'>{{poet.author_name}}</view>
-    <view class="divide"></view>
+    <view class="divide"/>
     <view class='title'>简介</view>
     <text class='profile'>{{poet.profile}}</text>
-    <view class="divide"></view>
+    <view class="divide"/>
     <view class="page list">
         <view class="page__bd">
             <view class="weui-cells__title">作品 (收录{{total}}首)</view>
@@ -19,21 +19,21 @@
         </view>
     </view>
     <button class='share' open-type="share">
-        <image src='../../../images/icon/share.png'></image>
+        <image src='../../../images/icon/share.png'/>
     </button>
     <button class='return' bindtap="return">
-        <image src='../../../images/icon/return.png'></image>
+        <image src='../../../images/icon/return.png'/>
     </button>
     <view class="collect" bindtap="updateCollect">
         <view class="collect-img" wx:if="{{!collect_status}}">
-            <image src="../../../images/icon/collect.png"></image>
+            <image src="../../../images/icon/collect.png"/>
             <view class="text">收藏</view>
         </view>
         <view class="collect-img" wx:if="{{collect_status}}">
-            <image src="../../../images/icon/collect_active.png"></image>
+            <image src="../../../images/icon/collect_active.png"/>
             <view class="text">已收藏</view>
         </view>
     </view>
      <!-- 快捷导航 -->
-    <shortcut id=""></shortcut>
+    <shortcut id=""/>
 </view>

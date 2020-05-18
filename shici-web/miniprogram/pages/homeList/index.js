@@ -101,7 +101,6 @@ Page({
         return {
             title: this.data.name,
             path: "/pages/homeList/index",
-            // imageUrl:'/images/poem.png',
             success: function (res) {
                 // 转发成功
                 console.log("转发成功！");

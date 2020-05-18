@@ -112,7 +112,6 @@ Page({
     updateCollect: function () {
         let that = this;
         if (that.data.user_id < 1) {
-            // https.userLogin(that.data.author.id,'poet');
             authLogin.authLogin(
                 "/pages/poet/detail/index?id=" + that.data.poet.id,
                 "nor",

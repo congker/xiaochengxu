@@ -117,11 +117,11 @@ Page({
                         collect_status: res.data.sentence.collect_status,
                         is_loading: false,
                         types:
-                            res.data.sentence.type && res.data.sentence.type != ""
+                            res.data.sentence.type && res.data.sentence.type !== ""
                                 ? res.data.sentence.type.split(",")
                                 : [],
                         themes:
-                            res.data.sentence.theme && res.data.sentence.theme != ""
+                            res.data.sentence.theme && res.data.sentence.theme !== ""
                                 ? res.data.sentence.theme.split(",")
                                 : []
                     });
@@ -518,7 +518,6 @@ Page({
         return {
             title: that.data.poem.title,
             path: "/pages/sentence/detail/index?id=" + that.data.sentence.id,
-            // imageUrl:'/images/poem.png',
             success: function (res) {
                 // 转发成功
                 console.log("转发成功！");
